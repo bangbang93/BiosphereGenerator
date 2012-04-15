@@ -1,0 +1,4 @@
+name: NewBio
+main: de.btbn.BiosphereGenerator.Main
+version: 0.01
+load: startup
