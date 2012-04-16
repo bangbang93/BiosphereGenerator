@@ -246,6 +246,7 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 		res.add(new ForestPopulator());
 		res.add(new MushroomIslandPopulator());
 		res.add(new DesertPopulator());
+		res.add(new HellPopulator());
 		return res;
 	}
 }
