@@ -12,7 +12,7 @@ import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.util.noise.PerlinOctaveGenerator;
 
-import de.btbn.BiosphereGenerator.Populators.TreePopulator;
+import de.btbn.BiosphereGenerator.Populators.*;
 
 public class BiosphereChunkGenerator extends ChunkGenerator
 {
@@ -73,7 +73,7 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 	private Biome calcBiome(World w, int x, int z)
 	{
 		Random r = new Random(w.getSeed() + (x / sphereDistance) * 7 - (z / sphereDistance) * 2);
-		switch (r.nextInt(10))
+		switch (r.nextInt(11))
 		{
 		case 0:
 			return Biome.HELL;
@@ -95,6 +95,8 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 			return Biome.BEACH;
 		case 9:
 			return Biome.MUSHROOM_ISLAND;
+		case 10:
+			return Biome.OCEAN;
 		}
 		return Biome.PLAINS;
 	}
@@ -125,6 +127,8 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 				return Material.SAND;
 			case MUSHROOM_ISLAND:
 				return Material.MYCEL;
+			case OCEAN:
+				return Material.WATER;
 			}
 		} else
 		{
@@ -150,6 +154,8 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 				return Material.SANDSTONE;
 			case MUSHROOM_ISLAND:
 				return Material.DIRT;
+			case OCEAN:
+				return Material.WATER;
 			}
 		}
 
@@ -172,7 +178,9 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 		for (int lx = 0; lx < 16; lx++)
 			for (int lz = 0; lz < 16; lz++)
 			{
+				Biome bio = calcBiome(world, wx + lx, wz + lz);
 				boolean nosphere = true;
+				boolean nobio = true;
 				boolean firstHit = true;
 				int groundLevel = getSurfaceLevel(wx + lx, wz + lz);
 				int tx = mod((wx + lx), sphereDistance);
@@ -183,11 +191,14 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 
 					if (ly <= groundLevel && groundSphere.inSphere(tx, ly, tz))
 					{
-						Biome bio = calcBiome(world, wx + lx, wz + lz);
 						setBlock(result, lx, ly, lz, getBiomeBlock(bio, firstHit));
-						nosphere = false;
 						firstHit = false;
-						continue;
+						nobio = false;
+						if(!bio.equals(Biome.OCEAN))
+						{
+							nosphere = false;
+							continue;
+						}
 					}
 
 					if (glassDome.inSphere(tx, ly, tz))
@@ -202,23 +213,21 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 
 				if (nosphere)
 				{
-					biomes.setBiome(lx, lz, Biome.SKY);
 					if ((tx > sphereDistance / 2 - 3 && tx < sphereDistance / 2 + 3) || (tz > sphereDistance / 2 - 3 && tz < sphereDistance / 2 + 3))
 						setBlock(result, lx, groundLevel, lz, Material.WOOD);
+				} 
+				if(nobio)
+				{
+					biomes.setBiome(lx, lz, Biome.SKY);
 					if (tx == sphereDistance / 2 - 2 || tx == sphereDistance / 2 + 2 || tz == sphereDistance / 2 - 2 || tz == sphereDistance / 2 + 2)
 						setBlock(result, lx, groundLevel + 1, lz, Material.FENCE);
-				} else
-					biomes.setBiome(lx, lz, calcBiome(world, wx + lx, wz + lz));
+				}
+				else
+					biomes.setBiome(lx, lz, bio);
 			}
 
 		return result;
 	}
-
-	/*
-	 * @Override public boolean canSpawn(World world, int x, int z) { // broken
-	 * return mod(x, sphereDistance) == sphereDistance / 2 && mod(z,
-	 * sphereDistance) == sphereDistance / 2; }
-	 */
 
 	@Override
 	public Location getFixedSpawnLocation(World world, Random random)
@@ -233,7 +242,11 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 	public List<BlockPopulator> getDefaultPopulators(World world)
 	{
 		LinkedList<BlockPopulator> res = new LinkedList<BlockPopulator>();
-		res.addLast(new TreePopulator());
+		res.add(new JunglePopulator());
+		res.add(new PlainsPopulator());
+		res.add(new ForestPopulator());
+		res.add(new MushroomIslandPopulator());
+		res.add(new DesertPopulator());
 		return res;
 	}
 }
