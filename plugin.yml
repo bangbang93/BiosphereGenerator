@@ -1,4 +1,4 @@
-name: NewBio
+name: BioGen
 main: de.btbn.BiosphereGenerator.Main
-version: 0.01
+version: 0.4
 load: startup

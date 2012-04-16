@@ -8,13 +8,11 @@ public class Main extends JavaPlugin
 	@Override
 	public void onEnable()
 	{
-		System.out.println("BioGen Loaded");
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		System.out.println("BioGen Unloaded");
 	}
 	
 	@Override
