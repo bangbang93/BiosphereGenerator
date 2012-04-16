@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
+import org.bukkit.entity.EntityType;
 import org.bukkit.generator.BlockPopulator;
 
 public class MushroomIslandPopulator extends BlockPopulator
@@ -21,12 +22,14 @@ public class MushroomIslandPopulator extends BlockPopulator
 			return;
 
 		int treeNum = random.nextInt(5);
+		int mooNum = random.nextInt(4)+1;
 		ArrayList<Location> locs = Helper.getBlockLocations(source, Material.MYCEL);
+		ArrayList<Location> mooLocs = new ArrayList<Location>(locs);
 
 		while (treeNum > 0 && locs.size() > 0)
 		{
 			int p = random.nextInt(locs.size());
-			Location loc = locs.get(p);
+			Location loc = locs.get(p).clone();
 			loc.add(0, 1, 0);
 			locs.remove(p);
 
@@ -36,6 +39,17 @@ public class MushroomIslandPopulator extends BlockPopulator
 
 			if (world.generateTree(loc, tt))
 				treeNum -= 1;
+		}
+
+		while (mooNum > 0 && mooLocs.size() > 0)
+		{
+			int p = random.nextInt(mooLocs.size());
+			Location loc = mooLocs.get(p).clone();
+			loc.add(0, 1, 0);
+			mooLocs.remove(p);
+			
+			world.spawnCreature(loc, EntityType.MUSHROOM_COW);
+			mooNum -= 1;
 		}
 	}
 
