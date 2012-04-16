@@ -1,4 +1,4 @@
-package de.btbn.BiosphereGenerator;
+package de.btbn.BiosphereGenerator.Populators;
 
 import java.util.ArrayList;
 import java.util.Random;

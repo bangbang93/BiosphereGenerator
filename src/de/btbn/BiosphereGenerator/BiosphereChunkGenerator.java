@@ -12,6 +12,8 @@ import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.util.noise.PerlinOctaveGenerator;
 
+import de.btbn.BiosphereGenerator.Populators.TreePopulator;
+
 public class BiosphereChunkGenerator extends ChunkGenerator
 {
 	public static int mod(int a, int b)
