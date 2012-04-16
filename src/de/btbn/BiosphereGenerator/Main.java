@@ -9,14 +9,15 @@ public class Main extends JavaPlugin
 	public void onEnable()
 	{
 	}
-	
+
 	@Override
 	public void onDisable()
 	{
 	}
-	
+
 	@Override
-    public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        return new BiosphereChunkGenerator();
-    }
+	public ChunkGenerator getDefaultWorldGenerator(String worldName, String id)
+	{
+		return new BiosphereChunkGenerator();
+	}
 }

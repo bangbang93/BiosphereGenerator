@@ -194,7 +194,7 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 						setBlock(result, lx, ly, lz, getBiomeBlock(bio, firstHit));
 						firstHit = false;
 						nobio = false;
-						if(!bio.equals(Biome.OCEAN))
+						if (!bio.equals(Biome.OCEAN))
 						{
 							nosphere = false;
 							continue;
@@ -215,14 +215,13 @@ public class BiosphereChunkGenerator extends ChunkGenerator
 				{
 					if ((tx > sphereDistance / 2 - 3 && tx < sphereDistance / 2 + 3) || (tz > sphereDistance / 2 - 3 && tz < sphereDistance / 2 + 3))
 						setBlock(result, lx, groundLevel, lz, Material.WOOD);
-				} 
-				if(nobio)
+				}
+				if (nobio)
 				{
 					biomes.setBiome(lx, lz, Biome.SKY);
 					if (tx == sphereDistance / 2 - 2 || tx == sphereDistance / 2 + 2 || tz == sphereDistance / 2 - 2 || tz == sphereDistance / 2 + 2)
 						setBlock(result, lx, groundLevel + 1, lz, Material.FENCE);
-				}
-				else
+				} else
 					biomes.setBiome(lx, lz, bio);
 			}
 
