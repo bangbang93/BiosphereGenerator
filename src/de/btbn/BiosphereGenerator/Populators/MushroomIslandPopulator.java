@@ -9,7 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
-import org.bukkit.entity.EntityType;
+//import org.bukkit.entity.EntityType;
 import org.bukkit.generator.BlockPopulator;
 
 public class MushroomIslandPopulator extends BlockPopulator
@@ -48,7 +48,7 @@ public class MushroomIslandPopulator extends BlockPopulator
 			loc.add(0, 1, 0);
 			mooLocs.remove(p);
 			
-			world.spawnCreature(loc, EntityType.MUSHROOM_COW);
+			//world.spawnCreature(loc, EntityType.MUSHROOM_COW);
 			mooNum -= 1;
 		}
 	}
