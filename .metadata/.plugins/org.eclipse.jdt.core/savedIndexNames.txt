@@ -1,0 +1,11 @@
+INDEX VERSION 1.126+F:\Code\VS\BiosphereGenerator\.metadata\.plugins\org.eclipse.jdt.core
+1856362575.index
+2572706871.index
+2688381330.index
+4124187204.index
+1857712973.index
+1488188519.index
+3904872480.index
+4259396804.index
+3229185152.index
+2901860848.index
